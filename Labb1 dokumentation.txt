@@ -1,0 +1,31 @@
+Klasser, förklarningar och implementering av TSIM finns under cd home/noahsu/Lab1/trainspotting/src/TSim/
+
+tåg1 -> int trainId
+tåg2 -> int trainId
+- för att få tågnummer använd getTrainId() som returnerar tågnummret för eventet. 
+- getEvent() fungerar på motsvarande sätt men anger vilket typ av event som skedde. 
+- Båda metoderna kommer från klassen TrainEvents(int trainId, int event) som skapar nytt event.
+
+Fyra switchar (switch[n], n=0-3) uppifrån och ner
+Fyra sensorer (sens[k], k=0-3) uppifrån och ner
+- SensorEvent(int trainId, int xPos, int yPos, int status) skapar ett event. Varje argument kan plockas m.h.a get<arg>()
+
+Sensorerna bör kolla tåg.speed(), vilken switch de har närmst sett till egen färdriktning och switchens läge (left/right). Den informationen måste sedan få switcharna att om nödvändigt byta läge
+
+Switcharna får inte ändras simultant: om båda kommer mot samma switch måste en semaphore avgöra vilken som går först. Den som blir utelåst sätts i vänteläge.
+
+Vänteläget gör att det utelåsta tåget stannar och bör vara en (i början) godtyckligt lång tid.
+När vänteläget släpper ska tåget åter sättas i fart.
+
+Hur ska tågen veta vilken väg de ska ta? 
+- Tågen bör gå mot kortaste vägen. Om spåret i fråga är upptaget, ta det andra.
+Hur vet jag vilken väg som är kortast?
+- 
+
+Ska de gå från station till station: isf, vad är poängen med "starträlsarna"? Eller ska de gå från respektives "starträls" till dedikerad station? (förmodligen alt. 1 annars kan inte tågen implementeras likadant)
+
+
+Går stationerna att söka mot? Alt: vad är en station? Ska de definieras eller är de redan implementerade?
+- Om de behöver definieras är en spaning: int i = 0; if (leftswitch[0] == true && sensor[0] == true): station1 = i % 2: i = i + 1:
+- där boolean station1 = false. Tåget ta köra fram en bit, stanna ett par sekunder (1000 + (20 * |train_speed|)) och sedan börja 
+- köra tillbaka. 
