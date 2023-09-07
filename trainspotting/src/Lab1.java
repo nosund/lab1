@@ -1,5 +1,5 @@
 import TSim.*;
-import java.util.concurrent.*;
+import java.util.concurrent.Semaphore;
 
 public class Lab1 {
 
@@ -21,6 +21,9 @@ public class Lab1 {
     }
   }
 }
+//Semaphores
+Semaphore track1 = new Semaphore(1);
+Semaphore track2 = new Semaphore(1);
 
 class shared{
   static int counter = 0;
@@ -28,18 +31,16 @@ class shared{
 
 //Threads för tågen
 class Train extends Thread {
-  public static void main(String[] args) {
+  SensorEvent SenEve = TSim.TSimInterface.getSensor();
+
+  public void main(String[] args) {
     
     Train train1 = new Train();
     train1.start();
   }
   public void run() {
-      TSimInterface tsi = TSimInterface.getInstance();
-
-    System.out.println("Running");
-    tsi.setSpeed(1,10);
-    
-
+    System.out.println("Running"); 
+    }
   }
 }
 
