@@ -7,8 +7,8 @@ public class Lab1 {
     TSimInterface tsi = TSimInterface.getInstance();
 
     try {
-      tsi.setSpeed(1,speed1);
-      tsi.setSpeed(2,speed2);
+      //tsi.setSpeed(1,speed1);
+      tsi.setSpeed(2,10);
       tsi.setSwitch(17, 7,0x02);
       tsi.setSwitch(15, 9,0x02);
       tsi.setSwitch(3, 11,0x02);
@@ -20,15 +20,23 @@ public class Lab1 {
     }
   }
 }
-
+//Semaphore implementation
 class shared{
   static int counter = 0;
 }
 
 //Threads för tågen
-class Train implements Runnable{
-  public void run(){
+class Train extends Thread {
+  public static void main(String[] args) {
+    
+    Train train1 = new Train();
+    train1.start();
+  }
+  public void run() {
+      TSimInterface tsi = TSimInterface.getInstance();
+
     System.out.println("Running");
+    tsi.setSpeed(1,10);
     
 
   }
