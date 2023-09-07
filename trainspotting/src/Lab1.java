@@ -7,12 +7,13 @@ public class Lab1 {
     TSimInterface tsi = TSimInterface.getInstance();
 
     try {
-      //tsi.setSpeed(1,speed1);
-      tsi.setSpeed(2,10);
+      tsi.setSpeed(1,speed1);
+      tsi.setSpeed(2,speed2);
       tsi.setSwitch(17, 7,0x02);
       tsi.setSwitch(15, 9,0x02);
       tsi.setSwitch(3, 11,0x02);
       
+
     }
     catch (CommandException e) {
       e.printStackTrace();    // or only e.getMessage() for the error
@@ -20,7 +21,7 @@ public class Lab1 {
     }
   }
 }
-//Semaphore implementation
+
 class shared{
   static int counter = 0;
 }
@@ -41,3 +42,4 @@ class Train extends Thread {
 
   }
 }
+
