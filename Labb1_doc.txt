@@ -20,20 +20,12 @@ När vänteläget släpper ska tåget åter sättas i fart.
 
 Hur ska tågen veta vilken väg de ska ta? 
 - Tågen bör gå mot kortaste vägen. Om spåret i fråga är upptaget, ta det andra.
-Hur vet jag vilken väg som är kortast?
-- 
+Hur vet vi vilken väg som är kortast?
+- Förslag: hårdkoda kartan och bestäm på så sätt rälsarnas längd.  
 
-Ska de gå från station till station: isf, vad är poängen med "starträlsarna"? Eller ska de gå från respektives "starträls" till dedikerad station? (förmodligen alt. 1 annars kan inte tågen implementeras likadant)
-
-
-Går stationerna att söka mot? Alt: vad är en station? Ska de definieras eller är de redan implementerade?
-1.
-- Om de behöver definieras är en spaning: int i = 0; if (leftswitch[0] == true && sensor[0] == true): station1 = i % 2: i = i + 1:
-- där boolean station1 = false. Tåget ta köra fram en bit, stanna ett par sekunder (1000 + (20 * |train_speed|)) och sedan börja 
-- köra tillbaka. 
-2.
-- Eventuellt, skapa public class station(int xPos, int yPos). Om man sätter tåg2 att gå mot int station1 = new station(x1,y1) och 
-- tåg1 mot int station1 = new station(x1,y1) så byter de station som mål, MEN tågen bör ej ha samma mål. Semaphore behövs isf.
-- En sensor på vardera tågstation hade kunnat agera guards. Men om en tråd är klar och den andra fortfarande är i kritiskt läge, vad-
-- ska då det färdiga tåget ta vägen under tiden? Tanken är att de bara ska stå stilla ett par sekunder. Ska den till sin starträls 
-- eller kan de faktiskt dela mål trots allt?
+Sensorer ger följande information:
+- trainId,
+- xPos och yPos för sensorn,
+- status (active, inactive)
+Baserat på detta och om ett tåg är på nästa spår måste switcharna
+ställas in. 
