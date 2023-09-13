@@ -66,13 +66,16 @@ public class Lab1 {
             }
             else{
               crossing.release();
-              Thread.sleep(2800 + (20 * Math.abs(speed)));
-              tsi.setSpeed(id,0);
-              Thread.sleep(2000);
+            }
+          }
+
+          //BB
+          if(xPos==16 && yPos==3 && stat==0x01){
+            tsi.setSpeed(id,0);
+            Thread.sleep(2000);
               speed = - this.speed;
               dir = !this.dir;
               tsi.setSpeed(id,speed);
-            }
           }
 
           //C
@@ -84,13 +87,16 @@ public class Lab1 {
             }
             else{
               crossing.release();
-              Thread.sleep(1200 + (20 * Math.abs(speed)));
-              tsi.setSpeed(id,0);
-              Thread.sleep(2000);
+            }
+          }
+
+          //CC
+          if(xPos==16 && yPos==5 && stat==0x01){
+            tsi.setSpeed(id,0);
+            Thread.sleep(2000);
               speed = - this.speed;
               dir = !this.dir;
               tsi.setSpeed(id,speed);
-            }
           }
           
           //D
@@ -270,6 +276,7 @@ public class Lab1 {
               }              
             }
           }
+          
           //P
           if(xPos==1 && yPos==11 && stat==0x01){
             if(dir==true){              
@@ -304,13 +311,16 @@ public class Lab1 {
             }
             else{
               curve_left.release();
-              Thread.sleep(2000 + (20 * Math.abs(speed)));
-              tsi.setSpeed(id,0);
-              Thread.sleep(2000);
+            }
+          }
+
+          //QQ
+          if(xPos==16 && yPos==11 && stat==0x01){
+            tsi.setSpeed(id,0);
+            Thread.sleep(2000);
               speed = - this.speed;
               dir = !this.dir;
               tsi.setSpeed(id,speed);
-            }
           }
 
           //R
@@ -324,15 +334,19 @@ public class Lab1 {
             }
             else{
               curve_left.release();
-              Thread.sleep(2500 + (20 * Math.abs(speed)));
-              tsi.setSpeed(id,0);
-              Thread.sleep(2000);
+            }
+          }      
+          
+          //RR
+          if(xPos==16 && yPos==13 && stat==0x01){
+            tsi.setSpeed(id,0);
+            Thread.sleep(2000);
               speed = - this.speed;
               dir = !this.dir;
               tsi.setSpeed(id,speed);
-            }
-          }          
+          }
         }
+
       } catch (Exception e) {
         // TODO: handle exception
       }
