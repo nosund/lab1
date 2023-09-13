@@ -29,3 +29,17 @@ Sensorer ger följande information:
 - status (active, inactive)
 Baserat på detta och om ett tåg är på nästa spår måste switcharna
 ställas in. 
+
+
+  Semaphore crossing = new Semaphore(1);
+  Semaphore stn2_over = new Semaphore(0);
+  Semaphore stn2_under = new Semaphore(1);
+  Semaphore curve_right = new Semaphore(1);
+  Semaphore curve_left = new Semaphore(1);
+  Semaphore straight1_over = new Semaphore(0);
+  Semaphore straight1_under = new Semaphore(1);
+  Semaphore straight2_over = new Semaphore(1);
+  Semaphore straight2_under = new Semaphore(1);
+
+Behövs en tom else{} om inget mer ska hända för att 
+while(true) ska fortsätta iterera?
