@@ -8,8 +8,8 @@ public class Lab1 {
     TSimInterface tsi = TSimInterface.getInstance();
     // Train t1 = new Train(tsi,speed1,true,1);
     // Train t2 = new Train(tsi,speed2,false,2);
-    Thread t1 = new Thread(new Train(tsi, speed1, true, 1));
-    Thread t2 = new Thread(new Train(tsi, speed2, false, 2));
+    //Thread t1 = new Thread(new Train(tsi, speed1, true, 1));
+    //Thread t2 = new Thread(new Train(tsi, speed2, false, 2));
 
     try {
       // tsi.setSpeed(2, speed2);
@@ -31,8 +31,8 @@ public class Lab1 {
     Semaphore straight2_over = new Semaphore(1);
     Semaphore straight2_under = new Semaphore(1);
 
-    t1.start();
-    t2.start();
+    //t1.start();
+    //t2.start();
       
   class Train implements Runnable {
     TSimInterface tsi;
@@ -56,17 +56,18 @@ public class Lab1 {
     public void run(){      
           
       try {
-      tsi.setSpeed(id,speed);      
-      straight1_over.acquire();
-      stn2_over.acquire();
+      tsi.setSpeed(id,speed);
+      if(id==1){
+        straight1_over.acquire();
+      }
+      else{
+        stn2_over.acquire();
+      }      
       sw1 = false;
       sw2 = false;
       sw3 = false;
       sw4 = false;
-      
-      System.out.println(straight1_over.availablePermits());
-      
-      
+
         while(true){ //längst upp
           SensorEvent sens;
           sens = tsi.getSensor(this.id);
@@ -85,9 +86,9 @@ public class Lab1 {
             }
             else{
               crossing.release();
-              Thread.sleep(3000 + (20 * Math.abs(speed)));
+              Thread.sleep(2800 + (20 * Math.abs(speed)));
               tsi.setSpeed(id,0);
-              Thread.sleep(1000 + (20 * Math.abs(speed)));
+              Thread.sleep(2000);
               speed = - this.speed;
               dir = !this.dir;
               tsi.setSpeed(id,speed);
@@ -105,7 +106,7 @@ public class Lab1 {
               crossing.release();
               Thread.sleep(1200 + (20 * Math.abs(speed)));
               tsi.setSpeed(id,0);
-              Thread.sleep(1000 + (20 * Math.abs(speed)));
+              Thread.sleep(2000);
               speed = - this.speed;
               dir = !this.dir;
               tsi.setSpeed(id,speed);
@@ -175,7 +176,7 @@ public class Lab1 {
           }
 
           //I
-          if(xPos==16 && yPos==8 && stat==0x01){
+          if(xPos==14 && yPos==8 && stat==0x01){
             if(dir==true){
               tsi.setSpeed(id,0);
               curve_right.acquire();
@@ -191,7 +192,6 @@ public class Lab1 {
           //J
           if(xPos==17 && yPos==9 && stat==0x01){
             if(dir==true){
-              System.out.println("ANTAL permissioner" + straight2_over.availablePermits());
               if(straight2_over.tryAcquire()){
                 tsi.setSwitch(15, 9, 0x02);
                 sw2 = true;                
@@ -275,7 +275,6 @@ public class Lab1 {
           if(xPos==2 && yPos==9 && stat==0x01){
             if(dir==false){
               if(straight2_over.tryAcquire()){
-                System.out.println("ANTAL permissioner " + straight2_over.availablePermits());
                 tsi.setSwitch(4, 9, 0x01);
                 sw3 = false;            
               }
@@ -331,7 +330,7 @@ public class Lab1 {
               curve_left.release();
               Thread.sleep(2000 + (20 * Math.abs(speed)));
               tsi.setSpeed(id,0);
-              Thread.sleep(1000 + (20 * Math.abs(speed)));
+              Thread.sleep(2000);
               speed = - this.speed;
               dir = !this.dir;
               tsi.setSpeed(id,speed);
@@ -352,7 +351,7 @@ public class Lab1 {
               curve_left.release();
               Thread.sleep(2500 + (20 * Math.abs(speed)));
               tsi.setSpeed(id,0);
-              Thread.sleep(1000 + (20 * Math.abs(speed)));
+              Thread.sleep(2000);
               speed = - this.speed;
               dir = !this.dir;
               tsi.setSpeed(id,speed);
@@ -360,9 +359,13 @@ public class Lab1 {
           }          
         }
       } catch (Exception e) {
-          // TODO: handle exception
+        // TODO: handle exception
       }
     }
   }
+  Thread t1 = new Thread(new Train(tsi, speed1, true, 1));
+  Thread t2 = new Thread(new Train(tsi, speed2, false, 2));
+  t1.start();
+  t2.start();
   }
 }
