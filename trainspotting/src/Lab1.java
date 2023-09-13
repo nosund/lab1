@@ -6,21 +6,7 @@ public class Lab1 {
 
   public Lab1(int speed1, int speed2) {
     TSimInterface tsi = TSimInterface.getInstance();
-    // Train t1 = new Train(tsi,speed1,true,1);
-    // Train t2 = new Train(tsi,speed2,false,2);
-    //Thread t1 = new Thread(new Train(tsi, speed1, true, 1));
-    //Thread t2 = new Thread(new Train(tsi, speed2, false, 2));
-
-    try {
-      // tsi.setSpeed(2, speed2);
-      /*
-       * tsi.setSwitch(15, 9, 0x02);
-       * tsi.setSwitch(4, 9, 0x01);
-       * tsi.setSwitch(17, 7, 0x02);
-       */
-    } catch (Exception e) {
-      // TODO: handle exception
-    }
+    
     Semaphore crossing = new Semaphore(1);
     Semaphore stn2_over = new Semaphore(1);
     Semaphore stn2_under = new Semaphore(1);
@@ -30,9 +16,6 @@ public class Lab1 {
     Semaphore straight1_under = new Semaphore(1);
     Semaphore straight2_over = new Semaphore(1);
     Semaphore straight2_under = new Semaphore(1);
-
-    //t1.start();
-    //t2.start();
       
   class Train implements Runnable {
     TSimInterface tsi;
@@ -45,7 +28,6 @@ public class Lab1 {
     boolean sw3; //switch mitten vänster
     boolean sw4; //switch längst ner vänster
     
-
     Train(TSimInterface tsi, int speed, boolean dir, int id) {
       this.tsi = tsi;
       this.speed = speed;
@@ -53,8 +35,7 @@ public class Lab1 {
       this.dir = dir;
     }
 
-    public void run(){      
-          
+    public void run(){ 
       try {
       tsi.setSpeed(id,speed);
       if(id==1){
@@ -73,8 +54,7 @@ public class Lab1 {
           sens = tsi.getSensor(this.id);
           int xPos = sens.getXpos();
           int yPos = sens.getYpos();
-          int stat = sens.getStatus();
-          
+          int stat = sens.getStatus();         
           
           //switch 4
           //B
@@ -135,7 +115,6 @@ public class Lab1 {
             else{
               crossing.release();
             }
-
           }
 
           //G
@@ -219,8 +198,7 @@ public class Lab1 {
               curve_right.acquire();
               tsi.setSwitch(15,9,0x02);
               sw2 = true; 
-              tsi.setSpeed(id, speed);
-                              
+              tsi.setSpeed(id, speed);                              
             }
             else{
               curve_right.release();
@@ -248,8 +226,7 @@ public class Lab1 {
               curve_left.acquire();
               tsi.setSwitch(4,9,0x01);
               sw3 = false; 
-              tsi.setSpeed(id, speed);
-                              
+              tsi.setSpeed(id, speed);                              
             }
             else{
               curve_left.release();
@@ -290,8 +267,7 @@ public class Lab1 {
               }
               else{
                 straight2_under.release();
-              }
-              
+              }              
             }
           }
           //P
@@ -316,6 +292,7 @@ public class Lab1 {
               }
             } 
           }
+
           //Q
           if(xPos==6 && yPos==11 && stat==0x01){
             if(dir==false){
@@ -323,8 +300,7 @@ public class Lab1 {
               curve_left.acquire();
               tsi.setSwitch(3,11,0x01);
               sw4 = false;
-              tsi.setSpeed(id, speed);
-              
+              tsi.setSpeed(id, speed);              
             }
             else{
               curve_left.release();
@@ -344,8 +320,7 @@ public class Lab1 {
               curve_left.acquire();
               tsi.setSwitch(3,11,0x02);
               sw4 = true;
-              tsi.setSpeed(id,speed);
-              
+              tsi.setSpeed(id,speed);              
             }
             else{
               curve_left.release();
